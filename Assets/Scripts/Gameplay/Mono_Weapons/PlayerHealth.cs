@@ -34,22 +34,31 @@ public class PlayerHealth : MonoBehaviour
    {
             Debug.Log("El jugador ha muerto!");
             // Aquí reiniciamos el nivel cuando el jugador muere
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Recarga la escena actual
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name); // AQUI VA LA PANTALLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA OSTIA TIO SI SEREIS GILLIPOLLAS
    }
-   
+
 
     // Detecta la colisión con las balas del enemigo
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Colision con enemigo");
+            TakeDamage(20);
+            Debug.Log("Vida" + currentHealth);
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("EnemyBullet"))  // Si la bala tiene el tag "EnemyBullet"
-        {
-            EnemyBullet bullet = other.GetComponent<EnemyBullet>();  // Obtener el script de la bala del enemigo
-            if (bullet != null)
-            {
-                TakeDamage(bullet.damage);  // Aplicar daño al jugador
-            }
+        //if (other.CompareTag("EnemyBullet"))  // Si la bala tiene el tag "EnemyBullet"
+        //{
+        //    EnemyBullet bullet = other.GetComponent<EnemyBullet>();  // Obtener el script de la bala del enemigo
+        //    if (bullet != null)
+        //    {
+        //        TakeDamage(bullet.damage);  // Aplicar daño al jugador
+        //    }
 
-            Destroy(other.gameObject);  // Destruir la bala después de colisionar
-        }
+        //    Destroy(other.gameObject);  // Destruir la bala después de colisionar
+        //}
     }
 }

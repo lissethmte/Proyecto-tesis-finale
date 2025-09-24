@@ -18,12 +18,8 @@ public class Bali : MonoBehaviour
         Destroy(gameObject, lifetime);
 
         // Mover la bala hacia adelante usando Rigidbody
-        rb.velocity = transform.forward * speed;
-    }
+        rb.velocity = -transform.right * speed;
 
-    private void Update()
-    {
-        Debug.Log(transform.position);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -51,10 +51,10 @@ public class Enemigo1 : MonoBehaviour
                     break;
 
                 case 2:
-                    transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
-                    transform.Translate(Vector3.forward * Time.deltaTime);
                     ani.SetBool("walk", true);
                     ani.SetBool("run", false);
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, angulo, 0.5f);
+                    transform.Translate(Vector3.forward * Time.deltaTime);
                     break;
             }
         }
@@ -86,11 +86,11 @@ public class Enemigo1 : MonoBehaviour
 
     
 
-    public void Final_Ani()
-    {
-        ani.SetBool("attack", false);
-        atacando = false;
-    }
+    //public void Final_Ani()
+    //{
+    //    ani.SetBool("attack", false);
+    //    atacando = false;
+    //}
 
     void Update()
     {
