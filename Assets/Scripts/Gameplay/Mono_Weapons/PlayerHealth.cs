@@ -19,6 +19,9 @@ public class PlayerHealth : MonoBehaviour
     {
         if (isDead) return;  // Si el jugador ya está muerto, no recibir daño
 
+
+
+
         currentHealth -= damage;  // Reducir la salud actual por el daño recibido
         Debug.Log("Jugador recibió " + damage + " de daño. Salud restante: " + currentHealth);
 
@@ -33,9 +36,9 @@ public class PlayerHealth : MonoBehaviour
    private void Die()
    {
             Debug.Log("El jugador ha muerto!");
-            // Aquí reiniciamos el nivel cuando el jugador muere
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name); // AQUI VA LA PANTALLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA OSTIA TIO SI SEREIS GILLIPOLLAS
-   }
+        // Aquí reiniciamos el nivel cuando el jugador muere
+        SceneManager.LoadScene("Muerte");
+    }
 
 
     // Detecta la colisión con las balas del enemigo

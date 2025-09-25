@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LevelTwo.unity
     guid: fcfd2946442bf82438632d5d97f8deb2
+  - enabled: 1
+    path: Assets/Muerte.unity
+    guid: 70752fe933a7ad043b79b7f022599967
   m_configObjects: {}
