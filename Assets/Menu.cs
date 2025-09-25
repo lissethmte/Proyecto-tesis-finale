@@ -6,7 +6,7 @@ public class MenuManager : MonoBehaviour
 {
     public GameObject menuPanel; // Asigna el panel del menú en el Inspector
     public Button startButton;
-    public FPC fpc;
+    //public FPC fpc;
         // Asigna el botón Start en el Inspector
 
     void Start()
@@ -21,7 +21,7 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1f; // Reanudar el tiempo
         menuPanel.SetActive(false); // Ocultar el menú
 
-        fpc.DesactivarMouse();
+       //fpc.DesactivarMouse();
     }
 
     public void QuitGame()

@@ -1,22 +1,23 @@
-using UnityEngine;
-using UnityEngine.UI;
-using TMPro;  // Asegúrate de incluir esto para usar TextMesh Pro
+ï»¿using UnityEngine;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class ZoneTimer : MonoBehaviour
 {
-    public float countdownTime = 60f; // Tiempo en segundos (1 minuto)
-    public TextMeshProUGUI timerText; // Texto para mostrar el tiempo con TextMeshPro
-    public TextMeshProUGUI messageText; // Texto para mostrar el mensaje de fin
+    public float countdownTime = 60f; // Tiempo en segundos
+    public TextMeshProUGUI timerText; // Texto del timer
+    public TextMeshProUGUI messageText; // Texto del mensaje de fin
 
-    private bool timerActive = false;
     private float currentTime;
+    private bool timerActive = false;
 
     void Start()
     {
         currentTime = countdownTime;
-        UpdateTimerUI();
-        messageText.gameObject.SetActive(false);  // Asegura que el mensaje esté oculto al inicio
+
+        // Ocultar textos al inicio
+        if (timerText != null) timerText.gameObject.SetActive(false);
+        if (messageText != null) messageText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -24,21 +25,32 @@ public class ZoneTimer : MonoBehaviour
         if (timerActive)
         {
             currentTime -= Time.deltaTime;
-            UpdateTimerUI();
+            if (currentTime < 0) currentTime = 0;
 
-            if (currentTime <= 0)
+            // Actualizar timer
+            if (timerText != null)
+                timerText.text = "TIEMPO: " + Mathf.Ceil(currentTime).ToString();
+
+            // Fin del timer
+            if (currentTime == 0)
             {
                 timerActive = false;
-                currentTime = 0;
-                UpdateTimerUI();
-                EndTimer(); // Llamar cuando el tiempo se acabe
+                if (messageText != null)
+                {
+                    messageText.gameObject.SetActive(true);
+                    messageText.text = "Â¡EL TIEMPO SE ACABÃ“!";
+                }
+
+                // Reiniciar la escena despuÃ©s de 3 segundos
+                Invoke("RestartGame", 3f);
             }
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !timerActive) // Asegura que solo se active una vez
+        // Solo se activa con el jugador y si no estaba activo
+        if (other.CompareTag("Player") && !timerActive)
         {
             StartTimer();
         }
@@ -47,31 +59,18 @@ public class ZoneTimer : MonoBehaviour
     void StartTimer()
     {
         timerActive = true;
-        messageText.gameObject.SetActive(false);  // Asegura que el mensaje no aparezca al inicio
-        Debug.Log("¡Timer iniciado!");
-    }
 
-    void EndTimer()
-    {
-        messageText.gameObject.SetActive(true);  // Mostrar el mensaje cuando el tiempo se acabe
-        messageText.text = "¡Se acabó el tiempo!";
+        // Mostrar el timer al entrar al trigger
+        if (timerText != null) timerText.gameObject.SetActive(true);
 
-        Debug.Log("¡Tiempo terminado!");
+        // Asegurarse que el mensaje siga oculto
+        if (messageText != null) messageText.gameObject.SetActive(false);
 
-        // Reiniciar la escena después de 3 segundos
-        Invoke("RestartGame", 3f);
+        Debug.Log("Â¡Timer iniciado!");
     }
 
     void RestartGame()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);  // Recarga la escena actual
-    }
-
-    void UpdateTimerUI()
-    {
-        if (timerText != null)
-        {
-            timerText.text = "Tiempo: " + Mathf.Ceil(currentTime).ToString();
-        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
